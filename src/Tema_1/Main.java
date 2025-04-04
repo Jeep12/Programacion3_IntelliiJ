@@ -13,14 +13,14 @@ public class Main {
 
         MySimpleLinkedList<Integer> list = new MySimpleLinkedList<Integer>();
 
-        list.insertFront(10);
-        list.insertFront(20);
         list.insertFront(30);
+        list.insertFront(20);
+        list.insertFront(10);
         list.insertLast(40);
 
         MySimpleLinkedList<Integer> list2 = new MySimpleLinkedList<Integer>();
-        list2.insertLast(60);
         list2.insertLast(50);
+        list2.insertLast(60);
         list2.insertLast(70);
         list2.insertLast(100);
         list2.insertLast(910);
@@ -38,7 +38,18 @@ public class Main {
 
         // System.out.println(list.size());
 
-        System.out.println(list.mergeListSort(list2));
+
+        System.out.println("====================================");
+        System.out.println(list2);
+        Iterator<Integer> it2 = list2.iterator();
+
+        Integer elem = it2.hasNext() ? it2.next() : null;
+
+        System.out.println(elem);
+        while(elem!=null){
+            System.out.println("hola");
+            elem=it2.next();
+        }
 
     }
 }

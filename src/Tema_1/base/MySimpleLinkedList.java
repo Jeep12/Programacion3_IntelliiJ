@@ -1,12 +1,9 @@
 package Tema_1.base;
 
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-public class MySimpleLinkedList<T> implements Iterable<T> {
+public class MySimpleLinkedList<T extends Comparable<T>> implements Iterable<T> {
 
     private Node<T> first;
     private Integer _size;
@@ -185,100 +182,177 @@ public class MySimpleLinkedList<T> implements Iterable<T> {
         }
         return message.toString();
 
-//		String text = "";
-//
-//		if (this._size == 0) {
-//			text = "[ ]";
-//		}
-//		text += "[ ";
-//		while (count < this._size) {
-//			text += aux.getInfo();
-//
-//			if (aux.getNext() != null) {
-//				text += ",";
-//			}
-//			aux = aux.getNext();
-//			count++;
-//		}
-//		text += " ] ";
 
-        // return text;
     }
 
-    // a) Las listas están desordenadas y la lista resultante debe quedar ordenada.
-    public MySimpleLinkedList<T> mergeInOrder(MySimpleLinkedList<T> newList) {
-        MySimpleLinkedList<T> result = new MySimpleLinkedList<>();
-        Node<T> aux = this.first;
-
-        // O(n^2)
-        while (aux.getNext() != null) {
-            result.insertLast(aux.getInfo());
-            aux = aux.getNext();
-        }
-        int count = 0;
-        // O(n^2)
-        while (count < newList.size()) {
-            result.insertLast(newList.get(count));
-            count++;
-        }
-
-        // Crear lista temporal para ordenar
-
-        List<T> tempList = new ArrayList<>();
-        int countTemp = 0;
-
-        // O(n^2)
-        // Pasar los elementos a tempList para ordenarlos
-        while (countTemp < result.size()) {
-
-            // O(n^2)
-            tempList.add(result.get(countTemp));
-            countTemp++;
-        }
-
-        //
-        tempList.sort(null);
-
-        // O(n^2)
-        // borro los elementos,
-        while (result.size() > 0) {
-            result.remove(0); // Elimina el primer elemento repetidamente
-        }
-
-        // O(n^2)
-        // inserto denuevo los elementos
-        tempList.stream().forEach(item -> result.insertLast(item));
-
-        return result;
-    }
 
     public MySimpleLinkedList<?> mergeListSort(MySimpleLinkedList<T> newList) {
         MySimpleLinkedList<T> result = new MySimpleLinkedList<T>();
 
         Iterator<T> it1 = this.iterator();
-
-        //Usando el insertFront puedo mejorar la complejidad porque insertLast es O(1) y el iterator es O(n), entonces queda O(n)
         while (it1.hasNext()) {
             T value = it1.next();
-            result.insertFront(value);
-
+            result.insertFront(value);  // Cambié insertFront por insertLast
         }
 
         Iterator<T> it2 = newList.iterator();
         while (it2.hasNext()) {
             T value = it2.next();
-            result.insertFront(value);
-
+            result.insertFront(value);  // Cambié insertFront por insertLast
         }
 
+        result = mergeSort(result);  // Llamamos al mergeSort
 
         return result;
     }
+
+    // Método auxiliar que implementa el algoritmo Merge Sort para ordenar una lista.
+    private MySimpleLinkedList<T> mergeSort(MySimpleLinkedList<T> list) {
+        if (list.size() <= 1) {  // Si la lista tiene 1 o menos elementos, ya está ordenada.
+            return list;
+        }
+
+        // Creamos dos nuevas listas para dividir la lista original.
+        MySimpleLinkedList<T> left = new MySimpleLinkedList<>();
+        MySimpleLinkedList<T> right = new MySimpleLinkedList<>();
+        int middle = list.size() / 2;  // Calculamos el punto medio para dividir la lista.
+
+        // Recorremos la lista original y agregamos los primeros 'middle' elementos a la lista 'left'.
+        Iterator<T> it = list.iterator();
+        for (int i = 0; i < middle; i++) {
+            left.insertLast(it.next());  // Insertamos al final de 'left'.
+        }
+
+        // Los elementos restantes se agregan a la lista 'right'.
+        while (it.hasNext()) {
+            right.insertLast(it.next());  // Insertamos al final de 'right'.
+        }
+
+        // Llamamos recursivamente a 'mergeSort' para ordenar las dos mitades.
+        left = mergeSort(left);
+        right = mergeSort(right);
+
+        // Combinamos las dos mitades ordenadas y retornamos el resultado.
+        return merge(left, right);
+    }
+
+    // Método auxiliar para combinar dos listas ordenadas.
+    private MySimpleLinkedList<T> merge(MySimpleLinkedList<T> left, MySimpleLinkedList<T> right) {
+        MySimpleLinkedList<T> result = new MySimpleLinkedList<>();  // Creamos una lista vacía para almacenar el resultado combinado.
+        Iterator<T> leftIt = left.iterator();  // Iterador para la lista 'left'.
+        Iterator<T> rightIt = right.iterator();  // Iterador para la lista 'right'.
+
+        // Obtenemos el primer elemento de cada lista.
+        T leftItem = leftIt.hasNext() ? leftIt.next() : null;
+        T rightItem = rightIt.hasNext() ? rightIt.next() : null;
+
+        // Mientras haya elementos en ambas listas, comparamos y agregamos el más pequeño.
+        while (leftItem != null && rightItem != null) {
+            if (((Comparable<T>) leftItem).compareTo(rightItem) <= 0) {  // Si leftItem es menor o igual a rightItem.
+                result.insertLast(leftItem);  // Insertamos leftItem en el resultado.
+                leftItem = leftIt.hasNext() ? leftIt.next() : null;  // Obtenemos el siguiente elemento de 'left'.
+            } else {
+                result.insertLast(rightItem);  // Insertamos rightItem en el resultado.
+                rightItem = rightIt.hasNext() ? rightIt.next() : null;  // Obtenemos el siguiente elemento de 'right'.
+            }
+        }
+
+        // Si quedan elementos en 'left', los agregamos al resultado.
+        while (leftItem != null) {
+            result.insertLast(leftItem);  // Insertamos leftItem en el resultado.
+            leftItem = leftIt.hasNext() ? leftIt.next() : null;  // Obtenemos el siguiente elemento de 'left'.
+        }
+
+        // Si quedan elementos en 'right', los agregamos al resultado.
+        while (rightItem != null) {
+            result.insertLast(rightItem);  // Insertamos rightItem en el resultado.
+            rightItem = rightIt.hasNext() ? rightIt.next() : null;  // Obtenemos el siguiente elemento de 'right'.
+        }
+
+        return result;  // Retornamos la lista combinada y ordenada.
+    }
+
 
     @Override
     public Iterator<T> iterator() {
         return new MyIterator<T>(first);
 
+    }
+
+    public MySimpleLinkedList<T> mergeListSort2(MySimpleLinkedList<T> newList) {
+        MySimpleLinkedList<T> result = new MySimpleLinkedList<>();
+
+        Iterator<T> it1 = this.iterator();
+        while (it1.hasNext()) {
+            T value = it1.next();
+            result.insertInOrder(value);
+        }
+
+        Iterator<T> it2 = newList.iterator();
+
+        while (it2.hasNext()) {
+            T value = it2.next();
+            result.insertInOrder(value);
+        }
+
+
+        return result;
+
+    }
+
+
+    public void insertInOrder(T value) {
+        Node<T> aux = this.first;
+        //Si la lista esta vacia insertarmos al frente O
+        // el valor del argumento es menor al  (this.first)
+        if (aux == null || value.compareTo(aux.getInfo()) < 0) {
+            insertFront(value);
+            return;
+        }
+        while (aux.getNext() != null) {
+            //Encontramos la pos
+            //Si el valor del argumento es mayoro igual al actual y menor o igual al valor del siguiente es donde tenemos que insertar
+            if (value.compareTo(aux.getNext().getInfo()) <= 0) {
+                break;
+            }
+            aux = aux.getNext();
+        }
+        //Creamos un nuevo nodo con el valor del argumento y le seteamos el siguiente del actual
+        Node<T> newNode = new Node<T>(value, aux.getNext());
+        aux.setNext(newNode);
+        this._size++;
+
+    }
+//Se podria utilizar el insertInOrder
+    public MySimpleLinkedList<T> mezclarListasYaOrdenadas(MySimpleLinkedList<T> newList) {
+        MySimpleLinkedList<T> result = new MySimpleLinkedList<T>();
+
+        Node<T> aux;
+        aux = this.first;
+        while (aux.getNext() != null) {
+            aux = aux.getNext();
+        }
+        Iterator<T>it1 = this.iterator();
+        Iterator<T>it2 = newList.iterator();
+        if (newList.get(0).compareTo(aux.getInfo())>0) {
+
+            while(it1.hasNext()){
+                result.insertLast(it1.next());
+            }
+            while(it2.hasNext()){
+                result.insertLast(it2.next());
+            }
+        }else {
+            while(it2.hasNext()){
+                result.insertLast(it2.next());
+            }
+            while(it1.hasNext()){
+                result.insertLast(it1.next());
+            }
+        }
+
+
+        return result;
     }
 
 }
