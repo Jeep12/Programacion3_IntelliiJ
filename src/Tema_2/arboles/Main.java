@@ -15,8 +15,25 @@ public class Main {
         tree.add(60);
         tree.add(80);
 
-        System.out.println("¿Tiene el 40? " + tree.hasElem(40));
-        System.out.println("¿Tiene el 90? " + tree.hasElem(90));
-        System.out.println("Raíz: " + tree.getRoot());
+        tree.add(90);
+        //tree.delete(30);
+        //System.out.println("¿Tiene el 40? " + tree.hasElem(40));
+        //System.out.println("¿Tiene el 90? " + tree.hasElem(90));
+       // System.out.println("Raíz: " + tree.getRoot());
+        //tree.delete(50);
+
+        //System.out.println("Raíz: " + tree.getRoot());
+
+        //boolean exists = tree.hasElem(40);
+       // System.out.println("¿Existe 40? " + exists);
+
+        //tree.delete(30);
+
+        //System.out.println(tree.getHeight());
+        tree.printTree();
+       // System.out.println("Post order " );
+        //tree.printInOrder();
+
+        System.out.println(tree.getMaxElem());
     }
 }
