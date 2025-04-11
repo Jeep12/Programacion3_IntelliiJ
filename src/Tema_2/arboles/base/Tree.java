@@ -14,10 +14,8 @@ public class Tree {
     }
 
     public void add(Integer value) {
-        if (this.root == null)
-            this.root = new TreeNode(value);
-        else
-            this.add(this.root, value);
+        if (this.root == null) this.root = new TreeNode(value);
+        else this.add(this.root, value);
     }
 
     private void add(TreeNode actual, Integer value) {
@@ -38,10 +36,14 @@ public class Tree {
         }
     }
 
+    //O(1)
     public Integer getRoot() {
         return this.root.getValue();
     }
 
+    //En el mejor de los casos (Arbol balanceado o Arbol completo)
+    // nos queda O(Log2 n)
+    //En el peor de los casos (Arbol Enredadera) O(n)
     public boolean hasElem(Integer elem) {
         return hasElem(root, elem);
     }
@@ -63,6 +65,8 @@ public class Tree {
 
     }
 
+
+    //O(1)
     public boolean isEmpty() {
         return this.root == null;
     }
@@ -168,7 +172,100 @@ public class Tree {
         }
 
 
-        return  getMaxElem(node.getRight(), maxElem);
+        return getMaxElem(node.getRight(), maxElem);
+
+    }
+
+    public List<Integer> getElemAtLevel(int level) {
+        List<Integer> result = new ArrayList<>();
+        getElemAtLevel(root, level, result);
+        return result;
+    }
+
+    private void getElemAtLevel(TreeNode node, int level, List<Integer> result) {
+        if (node == null) return;
+
+        if (level == 0) {
+            result.add(node.getValue());
+        } else {
+            getElemAtLevel(node.getLeft(), level - 1, result);
+            getElemAtLevel(node.getRight(), level - 1, result);
+        }
+    }
+
+    public Integer summAllNodes() {
+        return summAllNodes(root, 0);
+    }
+
+    private Integer summAllNodes(TreeNode node, Integer sum) {
+        if (node == null) {
+            return sum;
+        }
+        sum += node.getValue();
+        sum = summAllNodes(node.getLeft(), sum);
+        sum = summAllNodes(node.getRight(), sum);
+
+        return sum;
+    }
+
+    public List<Integer> getFrontGreat(Integer elem) {
+        List<Integer> result = new ArrayList<>();
+        return getFrontGreat(root, elem, result);
+    }
+
+    public List<Integer> getFrontGreat(TreeNode node, Integer elem, List<Integer> result) {
+        if (node == null) {
+            return result;
+        }
+        if (node.getLeft() == null && node.getRight() == null && node.getValue() > elem) {
+            result.add(node.getValue());
+        }
+        getFrontGreat(node.getLeft(), elem, result);
+        getFrontGreat(node.getRight(), elem, result);
+
+        return result;
+
+    }
+
+    public boolean isBalanced() {
+        return isBalanced(root);
+    }
+
+    private boolean isBalanced(TreeNode node) {
+        if (node == null) {
+            return true;
+        }
+        Integer heightL = this.getHeight(node);
+        Integer heightR = this.getHeight(node);
+        if (heightR - heightL > 1) {
+            return false;
+        }
+
+
+        return isBalanced(node.getLeft()) && isBalanced(node.getRight());
+
+    }
+
+    public boolean isLeaf(Integer elem) {
+        if (hasElem(elem)) {
+            return isLeaf(root, elem);
+
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isLeaf(TreeNode node, Integer elem) {
+        if (node == null) {
+            return false;
+        }
+        if (node.getValue().equals(elem)) {
+            return node.getLeft() == null && node.getRight() == null;
+        } else if (elem < node.getValue()) {
+            return isLeaf(node.getLeft(), elem);
+        } else {
+            return isLeaf(node.getRight(), elem);
+        }
 
 
     }

@@ -15,7 +15,7 @@ public class Main {
         tree.add(60);
         tree.add(80);
 
-        tree.add(90);
+
         //tree.delete(30);
         //System.out.println("¿Tiene el 40? " + tree.hasElem(40));
         //System.out.println("¿Tiene el 90? " + tree.hasElem(90));
@@ -30,10 +30,13 @@ public class Main {
         //tree.delete(30);
 
         //System.out.println(tree.getHeight());
-        tree.printTree();
        // System.out.println("Post order " );
         //tree.printInOrder();
 
-        System.out.println(tree.getMaxElem());
+        //System.out.println(tree.getFrontGreat(20));
+       // tree.delete(30);
+        System.out.println(tree.isLeaf(70));
+        tree.printTree();
+
     }
 }
