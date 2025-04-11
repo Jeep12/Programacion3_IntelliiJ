@@ -1,6 +1,8 @@
 package Tema_2.ABB.base;
 
 
+import Tema_2.arboles.base.TreeNode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -271,6 +273,69 @@ public class Tree {
         getNodesInternal(current.getRight(), result);
         getNodesInternal(current.getLeft(), result);
 
+    }
+
+    public Integer summAllNodes() {
+        return summAllNodes(root, 0);
+    }
+
+    private Integer summAllNodes(Node node, Integer sum) {
+        if (node == null) {
+            return sum;
+        }
+        sum += node.getValue();
+        sum = summAllNodes(node.getLeft(), sum);
+        sum = summAllNodes(node.getRight(), sum);
+
+        return sum;
+    }
+
+    public Integer sumEvenNodes() {
+        return sumEvenNodes(root);
+    }
+
+    private Integer sumEvenNodes(Node current) {
+        if (current == null) {
+            return 0;
+        }
+        Integer sum = 0;
+        if (current.getValue() % 2 == 0) {
+            sum += current.getValue();
+        }
+        return sum + sumEvenNodes(current.getRight()) + sumEvenNodes(current.getLeft());
+    }
+
+    public Integer countNodes() {
+        return countNodes(root);
+    }
+
+    private Integer countNodes(Node current) {
+        if (current == null) {
+            return 0;
+        }
+
+        return countNodes(current.getLeft()) + countNodes(current.getRight()) + 1;
+
+    }
+
+    public Integer countNodesGreaterThen(Integer elem) {
+        return countNodesGreaterThen(root, elem);
+    }
+
+    private Integer countNodesGreaterThen(Node current, Integer elem) {
+        if (current == null) {
+            return 0;
+        }
+        Integer count = 0;
+        if (current.getValue() > elem) {
+            count++;
+        }
+        return countNodesGreaterThen(current.getRight(), elem) + countNodesGreaterThen(current.getLeft(), elem) + count;
+    }
+    public Double promedioTree(){
+        Integer cantNodes = countNodes();
+        Integer sumAllNodes = summAllNodes();
+        return (double) sumAllNodes/cantNodes;
     }
 
     public void printTree() {

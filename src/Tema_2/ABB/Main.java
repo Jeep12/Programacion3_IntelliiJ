@@ -23,7 +23,7 @@ public class Main {
         t.add(80);
 
         t.printTree();
-        System.out.println(t.getNodesInternal());
+        System.out.println(t.promedioTree());
 
     }
 }

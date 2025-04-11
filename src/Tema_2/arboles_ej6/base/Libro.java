@@ -11,14 +11,15 @@ public class Libro {
     private Integer añoPublicacion;
     private Integer cantidadEjemplares;
 
-    public Libro(String autor, Integer añoPublicacion, Integer cantidadEjemplares, List<String> generos, Integer id, String titulo) {
-        this.autor = autor;
-        this.añoPublicacion = añoPublicacion;
-        this.cantidadEjemplares = cantidadEjemplares;
-        this.generos = generos;
+    public Libro(Integer id, String titulo, String autor, List<String> generos, Integer añoPublicacion, Integer cantidadEjemplares) {
         this.id = id;
         this.titulo = titulo;
+        this.autor = autor;
+        this.generos = generos;
+        this.añoPublicacion = añoPublicacion;
+        this.cantidadEjemplares = cantidadEjemplares;
     }
+
 
     public String getAutor() {
         return autor;
@@ -67,4 +68,18 @@ public class Libro {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
+
+    @Override
+    public String toString() {
+        return "Libro {\n" +
+                "  id = " + id + ",\n" +
+                "  titulo = '" + titulo + "',\n" +
+                "  autor = '" + autor + "',\n" +
+                "  generos = " + generos + ",\n" +
+                "  añoPublicacion = " + añoPublicacion + ",\n" +
+                "  cantidadEjemplares = " + cantidadEjemplares + "\n" +
+                '}';
+    }
+
+
 }
