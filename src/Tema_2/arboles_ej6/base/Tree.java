@@ -66,7 +66,7 @@ public class Tree {
         List<String> generos = current.getLibro().getGeneros();
 
         for (String genero : generos) {
-            if (genero.toLowerCase().equals(genre.toLowerCase())) {
+            if (genero.equalsIgnoreCase(genre)) {
                 result.add(current.getLibro());
             }
         }

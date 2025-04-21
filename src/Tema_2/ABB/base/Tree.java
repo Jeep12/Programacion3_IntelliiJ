@@ -1,8 +1,6 @@
 package Tema_2.ABB.base;
 
 
-import Tema_2.arboles.base.TreeNode;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -183,8 +181,7 @@ public class Tree {
             return 1;
         }
 
-        return countBranchesLongerThan(current.getLeft(), elem, count, result) +
-                countBranchesLongerThan(current.getRight(), elem, count, result);
+        return countBranchesLongerThan(current.getLeft(), elem, count, result) + countBranchesLongerThan(current.getRight(), elem, count, result);
 
     }
 
@@ -332,10 +329,130 @@ public class Tree {
         }
         return countNodesGreaterThen(current.getRight(), elem) + countNodesGreaterThen(current.getLeft(), elem) + count;
     }
-    public Double promedioTree(){
+
+    public Double promedioTree() {
         Integer cantNodes = countNodes();
         Integer sumAllNodes = summAllNodes();
-        return (double) sumAllNodes/cantNodes;
+        return (double) sumAllNodes / cantNodes;
+    }
+
+    public List<Integer> getLongestBranch2() {
+        List<Integer> result = new ArrayList<>();
+        return getLongestBranch2(root, result);
+
+    }
+
+    private List<Integer> getLongestBranch2(Node current, List<Integer> result) {
+        if (current == null) {
+            return result;
+        }
+
+        List<Integer> left = new ArrayList<>(result);
+        left.add(current.getValue());
+        List<Integer> resultLeft = getLongestBranch2(current.getLeft(), left);
+
+        List<Integer> right = new ArrayList<>(result);
+        right.add(current.getValue());
+        List<Integer> resultRight = getLongestBranch2(current.getRight(), right);
+
+
+        if (resultLeft.size() > resultRight.size()) {
+            return resultLeft;
+        } else {
+            return resultRight;
+        }
+
+
+    }
+
+    public List<List<Integer>> getAllBranchs() {
+        List<Integer> pathPartial = new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>();
+        return getAllBranchs(root, pathPartial, result);
+    }
+
+    private List<List<Integer>> getAllBranchs(Node current, List<Integer> pathPartial, List<List<Integer>> result) {
+        if (current == null) {
+            return result;
+        }
+        List<Integer> aux = new ArrayList<>(pathPartial);
+        aux.add(current.getValue());
+
+        if (current.getLeft() == null && current.getRight() == null) {
+            result.add(aux);
+        }
+        getAllBranchs(current.getRight(), aux, result);
+        getAllBranchs(current.getLeft(), aux, result);
+        return result;
+
+    }
+
+    public Integer sumNodesBranchSizeEven() {
+        return sumNodesBranchSizeEven(root, new ArrayList<>(), 0);
+    }
+
+    private Integer sumNodesBranchSizeEven(Node current, List<Integer> branch, Integer sum) {
+        if (current == null) {
+
+            return sum;  // Retornas el acumulador tal como está, sin sumarle nada extra
+        }
+        branch.add(current.getValue());
+
+        if (isLeaf(current) && branch.size() % 2 == 0) {
+            for (Integer branchValue : branch) {
+                sum += branchValue;
+
+            }
+
+        }
+
+        // Haces las llamadas recursivas a la izquierda y a la derecha, pasando el acumulador
+        sum = sumNodesBranchSizeEven(current.getLeft(), branch, sum);  // Llamada izquierda
+        sum = sumNodesBranchSizeEven(current.getRight(), branch, sum); // Llamada derecha
+
+        // Limpiamos la lista al regresar del recorrido de esta rama
+        branch.remove(branch.size() - 1);
+
+        return sum;  // Devuelves el acumulador actualizado
+    }
+
+    public Integer sumNodesBranchSizeEven2() {
+        Integer sum = 0;
+        sumNodesBranchSizeEven2(root, sum, 0);
+        return sum;
+    }
+
+    private void sumNodesBranchSizeEven2(Node current, Integer sum, Integer count) {
+        if (current == null) {
+
+        }
+
+        if (isLeaf(current) && count % 2 == 0) {
+            sum += current.getValue();
+
+        }
+
+
+
+    }
+
+
+    public boolean isLeaf(Node current) {
+        return current.getRight() == null && current.getLeft() == null;
+    }
+
+
+    public void practicaRecursividad() {
+        practicaRecursividad(root);
+
+    }
+
+    private void practicaRecursividad(Node current) {
+        if (current == null) {
+            return;
+        }
+
+
     }
 
     public void printTree() {

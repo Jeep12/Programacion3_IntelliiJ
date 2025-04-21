@@ -22,8 +22,22 @@ public class Main {
         t.add(75);
         t.add(80);
 
-        t.printTree();
-        System.out.println(t.promedioTree());
+        // t.printTree();
 
+        //System.out.println(t.getLongestBranch2());
+
+        Tree t2 = new Tree();
+
+        t2.add(10); // Nodo raíz
+        t2.add(5);  // Nodo izquierdo de la raíz
+        t2.add(15); // Nodo derecho de la raíz
+        t2.add(3);  // Nodo izquierdo de 5
+        t2.add(7);  // Nodo derecho de 5
+        t2.add(12); // Nodo izquierdo de 15
+        t2.add(17); // Nodo derecho de 15
+
+        t2.add(18);
+        t2.printTree();
+        System.out.println(t2.sumNodesBranchSizeEven());
     }
 }

@@ -32,7 +32,8 @@ public class Main {
 
         // System.out.println(tree.getBooksByGenre("Ciencia ficción"));
 
-        System.out.println(tree.getBookBeetwenYears(1606,2000));
+        //System.out.println(tree.getBookBeetwenYears(1606,2000));
+        System.out.println(tree.getBooksByGenre("drama"));
         tree.printTree();
     }
 }
