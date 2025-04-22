@@ -45,8 +45,13 @@ public class Tree {
 
     }
 
-    //O(1)
-    public Integer getBookForId(Integer id) {
+
+    public Libro getBookById(Integer id){
+        return this.mapBooks.get(id);
+    }
+
+    // O(1)
+    public Integer getBookQuantityById(Integer id) {
         return mapBooks.get(id).getCantidadEjemplares();
     }
 

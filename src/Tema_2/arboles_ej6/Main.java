@@ -4,6 +4,7 @@ import Tema_2.arboles_ej6.base.Libro;
 import Tema_2.arboles_ej6.base.Tree;
 
 import java.util.Arrays;
+import java.util.Hashtable;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,13 +28,19 @@ public class Main {
         tree.add(libro7);
         tree.add(libro1);
 
-        //System.out.println(tree.getBookForId(1));
+//        System.out.println(tree.getBookById(1));
+        Hashtable<Integer, String> tabla = new Hashtable<Integer, String>();
+        tabla.put(30, "Juan");
+        int M = 9;
+        System.out.println("40 mod 9 = " + (40 % M)); // Output: 4
 
-
+        //  System.out.println(tabla.get(30));
+        //int num = 167;
+        // System.out.println(libro1.hashCode());
         // System.out.println(tree.getBooksByGenre("Ciencia ficción"));
 
         //System.out.println(tree.getBookBeetwenYears(1606,2000));
-        System.out.println(tree.getBooksByGenre("drama"));
+        //System.out.println(tree.getBooksByGenre("drama"));
         tree.printTree();
     }
 }

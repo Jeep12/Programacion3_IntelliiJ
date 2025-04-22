@@ -70,15 +70,22 @@ public class Libro {
     }
 
     @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
     public String toString() {
-        return "Libro {\n" +
-                "  id = " + id + ",\n" +
-                "  titulo = '" + titulo + "',\n" +
-                "  autor = '" + autor + "',\n" +
-                "  generos = " + generos + ",\n" +
-                "  añoPublicacion = " + añoPublicacion + ",\n" +
-                "  cantidadEjemplares = " + cantidadEjemplares + "\n" +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Libro {\n")
+                .append("  id = ").append(id).append(",\n")
+                .append("  titulo = '").append(titulo).append("',\n")
+                .append("  autor = '").append(autor).append("',\n")
+                .append("  generos = ").append(generos).append(",\n")
+                .append("  añoPublicacion = ").append(añoPublicacion).append(",\n")
+                .append("  cantidadEjemplares = ").append(cantidadEjemplares).append("\n")
+                .append('}');
+        return sb.toString();
     }
 
 
