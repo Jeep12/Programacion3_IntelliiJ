@@ -22,6 +22,6 @@ public class Main {
 
 
         abb.printTree();
-        System.out.println(abb.ramaMasLarga2());
+        System.out.println(abb.sumarAPartir(31));
     }
 }

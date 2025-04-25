@@ -531,6 +531,25 @@ public class Tree {
     }
 
 
+    public Integer sumarAPartir(Integer value) {
+        return sumarAPartir(root, value, 0);
+    }
+
+    private Integer sumarAPartir(Node current, Integer value, Integer resultado) {
+        if (current == null) {
+            return resultado;
+        }
+
+        if (current.getValue() >= value) {
+            resultado += current.getValue();
+        }
+
+        resultado = sumarAPartir(current.getLeft(), value, resultado);
+        resultado = sumarAPartir(current.getRight(), value, resultado);
+
+        return resultado;
+
+    }
 
     public void printTree() {
         if (root == null) {
