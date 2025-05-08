@@ -187,7 +187,11 @@ public class DFSEJERCICIOS {
                 System.out.println("El adyacente " + adyacente + " está BLANCO → hacemos DFS recursivo");
                 recorrerColores(grafo, adyacente, colores);
                 System.out.println("Volvemos del vértice " + adyacente + " al vértice " + vActual);
-            } else if (colores.get(adyacente).equals("AMARILLO")) {
+            }else if(colores.get(adyacente).contains("AMARILLO") && colores.get(vActual).contains("AMARILLO")){
+                System.out.println("Se encontro un arco back del " + adyacente + " al " + vActual);
+            }
+
+            else if (colores.get(adyacente).equals("AMARILLO")) {
                 System.out.println("¡Ciclo detectado! El vértice " + adyacente + " ya estaba AMARILLO");
             } else if (colores.get(adyacente).equals("NEGRO")) {
                 System.out.println("El adyacente " + adyacente + " ya fue procesado (NEGRO)");
@@ -197,6 +201,68 @@ public class DFSEJERCICIOS {
         colores.put(vActual, "NEGRO");
         System.out.println("Terminamos de procesar el vértice " + vActual + " → lo pintamos de NEGRO");
     }
+
+
+    public static <T> void recorrerColores2(Grafo<T> grafo) {
+        Map<Integer, String> colores = new HashMap<>();
+        Map<Integer, Integer> tiempoDescubrimiento = new HashMap<>();
+        Map<Integer, Integer> tiempoFinalizacion = new HashMap<>();
+        int[] tiempo = {0}; // Usamos arreglo para simular "por referencia"
+
+        Iterator<Integer> vertices = grafo.obtenerVertices();
+        while (vertices.hasNext()) {
+            Integer vertice = vertices.next();
+            colores.put(vertice, "BLANCO");
+        }
+
+        vertices = grafo.obtenerVertices();
+
+        while (vertices.hasNext()) {
+            Integer vertice = vertices.next();
+            if (colores.get(vertice).equals("BLANCO")) {
+                System.out.println("\n>>> Empezando DFS desde el vértice: " + vertice);
+                recorrerColores2(grafo, vertice, colores, tiempoDescubrimiento, tiempoFinalizacion, tiempo);
+            }
+        }
+
+        System.out.println("\n>>> Tiempos de descubrimiento y finalización:");
+        for (Integer v : tiempoDescubrimiento.keySet()) {
+            System.out.println("Vértice " + v + " → " +
+                    "Descubrimiento: " + tiempoDescubrimiento.get(v) +
+                    " | Finalización: " + tiempoFinalizacion.get(v));
+        }
+    }
+
+    public static <T> void recorrerColores2(Grafo<T> grafo, Integer vActual,
+                                           Map<Integer, String> colores,
+                                           Map<Integer, Integer> tiempoDescubrimiento,
+                                           Map<Integer, Integer> tiempoFinalizacion,
+                                           int[] tiempo) {
+        colores.put(vActual, "AMARILLO");
+        tiempo[0]++;
+        tiempoDescubrimiento.put(vActual, tiempo[0]);
+        System.out.println("Visitamos vértice " + vActual + " (tiempo: " + tiempo[0] + ")");
+
+        Iterator<Integer> adyacentes = grafo.obtenerAdyacentes(vActual);
+        while (adyacentes.hasNext()) {
+            Integer adyacente = adyacentes.next();
+            System.out.println("Vértice actual: " + vActual + " | Adyacente: " + adyacente);
+
+            if (colores.get(adyacente).equals("BLANCO")) {
+                recorrerColores2(grafo, adyacente, colores, tiempoDescubrimiento, tiempoFinalizacion, tiempo);
+            } else if (colores.get(adyacente).equals("AMARILLO")) {
+                System.out.println("Se encontro un arco back del " + vActual + " al " + adyacente);
+            } else if (colores.get(adyacente).equals("NEGRO")) {
+                System.out.println("El adyacente " + adyacente + " ya fue procesado (NEGRO)");
+            }
+        }
+
+        colores.put(vActual, "NEGRO");
+        tiempo[0]++;
+        tiempoFinalizacion.put(vActual, tiempo[0]);
+        System.out.println("Terminamos vértice " + vActual + " (tiempo: " + tiempo[0] + ")");
+    }
+
 
 
 }
