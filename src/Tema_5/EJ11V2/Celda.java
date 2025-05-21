@@ -1,4 +1,5 @@
-package Tema_5.EJ11;
+package Tema_5.EJ11V2;
+
 
 public class Celda {
 
@@ -88,8 +89,5 @@ public class Celda {
     }
 
 
-    @Override
-    public int hashCode() {
-        return 31 * fila + columna;
-    }
+
 }

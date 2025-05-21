@@ -1,7 +1,5 @@
 package Tema_5.EJ11;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Solucion {
@@ -10,7 +8,7 @@ public class Solucion {
 
     public Solucion() {
         this.cantPasos = 0;
-        this.solucion = new HashSet<>();
+        this.solucion = null;
     }
 
     public Integer getCantPasos() {
@@ -29,14 +27,15 @@ public class Solucion {
         this.solucion = solucion;
     }
 
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Cantidad de pasos: ").append(cantPasos).append("\n");
         sb.append("Camino:\n");
-        for (Celda c : solucion) {
-            sb.append(" -> (").append(c.getFila()).append(", ").append(c.getColumna()).append(")\n");
+        if (solucion != null) {
+            for (Celda c : solucion) {
+                sb.append(" -> (").append(c.getFila()).append(", ").append(c.getColumna()).append(")\n");
+            }
         }
         return sb.toString();
     }

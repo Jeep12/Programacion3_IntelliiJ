@@ -13,9 +13,7 @@ public class Estado {
         this.cantPasos = 0;
         this.celdaActual = celdaActual;
         this.visitados = new HashSet<>();
-
     }
-
 
     public Integer getCantPasos() {
         return cantPasos;
@@ -30,7 +28,6 @@ public class Estado {
     }
 
     public void setCeldaActual(Celda celdaActual) {
-        this.cantPasos++;
         this.celdaActual = celdaActual;
     }
 
@@ -38,16 +35,6 @@ public class Estado {
         return visitados;
     }
 
-    public void addVisitado(Celda celda){
-        this.visitados.add(celda);
-    }
-
-    public void removetVisitado(){
-        this.visitados.remove(this.visitados.size()-1);
-    }
-    public void restarCantPasos(){
-        this.cantPasos--;
-    }
     public void setVisitados(Set<Celda> visitados) {
         this.visitados = visitados;
     }
