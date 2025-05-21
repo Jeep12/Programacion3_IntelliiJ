@@ -75,11 +75,7 @@ public class Celda {
 
     @Override
     public String toString() {
-        return "Celda{" +
-                "fila=" + fila +
-                ", columna=" + columna +
-                ", obstaculziada " + this.getObstaculizado() +
-                '}';
+        return "Celda [" + this.getFila() + "]" + "[" + this.getColumna()+"]"  ;
     }
 
     @Override
