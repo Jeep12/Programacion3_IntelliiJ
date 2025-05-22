@@ -11,48 +11,60 @@ public class GreedyEJ2 {
     }
 
     public List<Objeto> mochila(List<Objeto> objetos) {
+        List<Objeto> disponibles = new ArrayList<>(objetos);
 
+        //Ordenaria de mayor a menor
+        //disponibles.sort(Collections.reverseOrder());
 
         Double peso = 0.0;
 
-        while (peso < mochila.getMaxPeso()) {
-            Objeto o = seleccionar(objetos);
+        while (peso < mochila.getMaxPeso() && !disponibles.isEmpty()) {
+            Objeto o = seleccionar(disponibles);
+            System.out.println("Seleccionado: " + o + " con valor/peso = " + (o.getValor()/o.getPeso()));
+
+            disponibles.remove(o); // importante!
+            System.out.println("Objetos restantes: " + disponibles.size());
+
             if (peso + o.getPeso() < mochila.getMaxPeso()) {
                 mochila.addObjecto(o);
                 peso += o.getPeso();
-            }else {
-
-                double espacio = mochila.getMaxPeso() - mochila.getPesoActual();
+                System.out.println("Agregado completo: " + o);
+                System.out.println("Peso total ahora: " + peso);
+            } else {
+                double espacio = mochila.getMaxPeso() - peso; // ESPACIO QUE LE MOCHILA
                 double fraccion = espacio / o.getPeso();
                 double valorFraccion = o.getValor() * fraccion;
 
                 Objeto fraccionado = new Objeto(valorFraccion, espacio);
-                mochila.add(fraccionado);
-                pesoActual += espacio;
-                valorTotal += valorFraccion;
-                break;
+                mochila.addObjecto(fraccionado);
+                peso += espacio;
+                System.out.println("Agregado fraccionado: " + fraccionado);
+                System.out.println("Peso total ahora: " + peso);
             }
-
-
         }
+
+        System.out.println("Mochila llena con peso: " + peso);
+        System.out.println("Objetos en mochila: " + mochila.getMochila().size());
 
         return mochila.getMochila();
     }
 
     public Objeto seleccionar(List<Objeto> objetos) {
         Objeto o = objetos.get(0);
-        Double mejor = o.getValor()/o.getPeso();
+        Double mejor = o.getValor() / o.getPeso();
+        System.out.println("Seleccionando mejor relación valor/peso...");
 
-        for (Objeto objetoACTUAL :objetos){
-            Double relacionActual =objetoACTUAL.getValor()/objetoACTUAL.getPeso();
-            if (relacionActual>mejor){
+        for (Objeto objetoACTUAL : objetos) {
+            Double relacionActual = objetoACTUAL.getValor() / objetoACTUAL.getPeso();
+            System.out.println("Objeto: " + objetoACTUAL + ", relación: " + relacionActual);
+            if (relacionActual > mejor) {
                 o = objetoACTUAL;
                 mejor = relacionActual;
             }
         }
 
+        System.out.println("Mejor objeto seleccionado: " + o + " con relación: " + mejor);
         return o;
-
     }
 
 

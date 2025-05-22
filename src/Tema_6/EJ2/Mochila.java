@@ -11,6 +11,7 @@ public class Mochila {
         this.maxPeso = maxPeso;
         this.mochila = new ArrayList<>();
         this.pesoActual = 0.0;
+
     }
 
     public void addObjecto(Objeto elem){
@@ -18,6 +19,15 @@ public class Mochila {
             pesoActual+= elem.getPeso();
             mochila.add(elem);
         }
+    }
+
+
+    public Double precio(){
+       Double suma = 0.0;
+        for (Objeto o : this.mochila){
+            suma+=o.getValor();
+        }
+        return suma;
     }
 
 

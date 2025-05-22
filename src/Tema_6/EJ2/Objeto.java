@@ -26,4 +26,14 @@ public class Objeto {
     public void setPeso(Double peso) {
         this.peso = peso;
     }
+
+    @Override
+    public String toString() {
+        return   "Objeto con valor " + this.getValor();
+    }
+
+
+
+
+
 }
