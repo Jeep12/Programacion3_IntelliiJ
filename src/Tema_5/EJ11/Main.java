@@ -31,7 +31,7 @@ public class Main {
         matriz[2][3] = new Celda(0, false, true, true, false, 2, 3);
         matriz[2][4] = new Celda(0, false, true, false, true, 2, 4);
 
-        Celda fuenteDeCarga = matriz[0][0];
+        Celda fuenteDeCarga = matriz[2][0];
         Celda posRobot = matriz[1][2];
 
 

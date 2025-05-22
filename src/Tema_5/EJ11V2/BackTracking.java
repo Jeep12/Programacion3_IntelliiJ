@@ -3,6 +3,7 @@ package Tema_5.EJ11V2;
 import Tema_5.EJ11.Solucion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BackTracking {
@@ -47,9 +48,9 @@ public class BackTracking {
                 }
             }
         }
-
         estado.getVisitados().remove(actual);
         estado.removerUltimo();
+
     }
 
 
@@ -81,7 +82,6 @@ public class BackTracking {
         // pregunta si la celda de la derecha no está obstaculizada
         if (c.isDerecha() && col < matriz[0].length - 1 && matriz[f][col + 1].getObstaculizado() == 0)
             vecinos.add(matriz[f][col + 1]);
-
 
         return vecinos;
     }
