@@ -30,7 +30,7 @@ public class BacktrackingParcial {
 
             mejorSolucion.setSubconjunto(new ArrayList<>(estado.getVisitados()));
 
-        } else {//Generacion hijos
+        } else {
 
             Iterator<Producto> itProducto = productos.iterator();
 

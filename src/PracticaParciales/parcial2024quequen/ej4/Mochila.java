@@ -1,6 +1,6 @@
 package PracticaParciales.parcial2024quequen.ej4;
 
-import java.util.List;
+import java.util.*;
 
 public class Mochila {
 

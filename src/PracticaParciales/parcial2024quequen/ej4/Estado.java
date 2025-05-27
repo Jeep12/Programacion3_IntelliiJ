@@ -2,7 +2,6 @@ package PracticaParciales.parcial2024quequen.ej4;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class Estado {
     List<Producto> visitados;
