@@ -9,7 +9,7 @@ public class Estado {
     public Estado() {
         this.visitados = new ArrayList<>();
     }
-
+//asd
 
     public Integer pesoActual() {
         Integer suma = 0;
