@@ -28,6 +28,6 @@ public class Producto {
 
     @Override
     public String toString() {
-        return " Valor " + this.getValor() + " Peso " + this.getPeso() + " ";
+        return "Valor " + this.getValor() + " Peso " + this.getPeso() + " ";
     }
 }
