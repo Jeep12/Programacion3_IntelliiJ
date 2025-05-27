@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        // Creo algunos productos (valor, peso)
+        //Productos
         Producto p1 = new Producto(10, 5);
         Producto p2 = new Producto(15, 8);
         Producto p3 = new Producto(7, 1);
@@ -16,13 +16,10 @@ public class Main {
         productos.add(p3);
         productos.add(p4);
 
-        // Capacidad máxima de la mochila
         Mochila mochila = new Mochila(15, new ArrayList<>());
 
-        // Creo el backtracking con mochila y productos
         BacktrackingParcial backtracking = new BacktrackingParcial(mochila, productos);
 
-        // Ejecuto el algoritmo
 
         System.out.println(backtracking.back());
 
