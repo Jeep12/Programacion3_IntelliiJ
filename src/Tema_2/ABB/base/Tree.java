@@ -433,13 +433,13 @@ public class Tree {
         }
 
 
-
     }
 
 
     public boolean isLeaf(Node current) {
         return current.getRight() == null && current.getLeft() == null;
     }
+
 
 
     public void practicaRecursividad() {

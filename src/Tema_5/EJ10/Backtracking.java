@@ -28,31 +28,32 @@ public class Backtracking {
 
 
     public Solucion ejercicio(Integer N) {
-        Estado estado = new Estado(new ArrayList<>(),new ArrayList<>());
-        ejercicio(estado,N);
+        Estado estado = new Estado(new ArrayList<>(), new ArrayList<>());
+        ejercicio(estado, N, 0);
 
         return this.mejorSolucion;
     }
 
-    private void ejercicio(Estado estado, Integer N) {
+    private void ejercicio(Estado estado, Integer N, Integer indice) {
         if (estado.getCaminoParcial().size() == (N)) {
             if (estado.esCero()) {
                 mejorSolucion.getResultado().add(new ArrayList<>(estado.getCaminoParcial()));
             }
         } else {
 
-                for (Integer value:conjunto){
-                    if (!estado.getVisitados().contains(value)){
-                        estado.getVisitados().add(value);
-                        estado.getCaminoParcial().add(value);
+            for (int i = indice; i < conjunto.size(); i++) {
+                if (!estado.getVisitados().contains(conjunto.get(i))) {
+                    estado.getVisitados().add(conjunto.get(i));
+                    estado.getCaminoParcial().add(conjunto.get(i));
 
-                        ejercicio(estado,N);
+                    ejercicio(estado, N, i + 1);
 
-                        estado.getCaminoParcial().remove(value);
-                        estado.getVisitados().remove(value);
-                    }
+                    estado.getVisitados().remove(conjunto.get(i));
+                    estado.getCaminoParcial().remove(conjunto.get(i));
 
                 }
+            }
+
         }
     }
 

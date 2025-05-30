@@ -438,5 +438,20 @@ public class Tree {
         }
     }
 
+    ArrayList<Integer> algoritmo(TreeNode node, Integer value) {
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        if (node != null) {
+            Integer newValue = value;
+            if (node.getValue() < value) {
+                newValue = value - node.getValue();
+                result.add(node.getValue());
+            }
+            if (node.getLeft() != null)
+                result.addAll(algoritmo(node.getLeft(), newValue));
+            else if (node.getRight() != null)
+                result.addAll(algoritmo(node.getRight(), newValue));
+        }
+        return result;
+    }
 
 }
